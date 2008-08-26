@@ -1,0 +1,98 @@
+h1. space
+
+!skynet_logo.jpg!
+
+h2. A Ruby MapReduce Framework
+
+<a href="http://rubyforge.org/projects/skynet/">Skynet RubyForge Home</a><br />
+<a href="doc/index.html">Documentation</a>
+
+h2. See Skynet at RailsConf 08
+
+h4. Sat Mar 31, 2008 4:25pm - 5:15pm PDT @ Portland Ballroom 255
+
+<a href="http://en.oreilly.com/rails2008/public/schedule/detail/2022" target="_blank">More Info</a>
+
+<a href="http://en.oreilly.com/rails2008/public/schedule/detail/2022" target="_blank">
+<img src="http://conferences.oreillynet.com/banners/rails/speaker/728x90.jpg" width="728" height="90"  border="0"  alt="RailsConf 2008" title="RailsConf 2008"  />
+</a>
+
+h2. What is Skynet
+
+Skynet is an open source Ruby implementation of Google's MapReduce framework, created at Geni. With Skynet, one can easily convert a time-consuming serial task, such as a computationally expensive Rails migration, into a distributed program running on many computers.  If you'd like to learn more about MapReduce, see my intro at the bottom of this document.
+
+Skynet is an adaptive, self-upgrading, fault-tolerant, and fully distributed system with no single point of failure. It uses a "peer recovery" system where workers watch out for each other. If a worker dies or fails for any reason, another worker will notice and pick up that task. Skynet also has no special 'master' servers, only workers which can act as a master for any task at any time. Even these master tasks can fail and will be picked up by other workers.
+
+For more detailed documentation see the following:
+
+Skynet::Job - The main interface to Skynet; includes an example of how to use Skynet
+
+Skynet::Config - Configuration options
+
+bin/skynet[link:files/bin/skynet.html] - Starting Skynet
+
+bin/skynet_install[link:files/bin/skynet_install.html] - Installing Skynet into a local project
+
+There are also some examples in the examples/ directory included with Skynet.
+
+h2. Installation
+
+Skynet can be installed via RubyGems:
+
+  $ sudo gem install skynet
+
+or grab the bleeding edge skynet in svn at
+  $ svn checkout svn+ssh://developername@rubyforge.org/var/svn/skynet
+  $ cd skynet; rake install_gem
+
+h2. Initial Setup
+
+Skynet works by putting "tasks" on a message queue which are picked up by skynet workers. The workers execute tasks and put their results back on the message queue. Skynet workers need to load your code at startup in order to be able to execute your tasks. This loading is handled by installing a skynet config file into your app running skynet_install[link:files/bin/skynet_install.html]. 
+
+  $ skynet_install [--rails] [--mysql] APP_ROOT_DIR
+
+This creates a file called skynet_config.rb in APP_ROOT_DIR/config to which you can add the relevant requires. For example, you might have a rails app and want some of that code to run asynchronously or in a distributed way. Just run 'skynet_install --rails' in your rails root, and it will automatically create config/skynet_config.rb and require environment.rb.
+
+Skynet currently supports 2 message queue systems, TupleSpace and Mysql. By default, the TupleSpace queue is used as it is the easiest to set up, though it is less powerful and less scaleable for large installations. If you pass --mysql to skynet_install, it will assume you are using the mysql as your message queue.
+
+h2. Starting Skynet
+
+Once it is installed in your application, you can run skynet from your applications root directory with:
+
+  $ skynet start [--workers=N]
+
+This starts a skynet tuple space message queue and 4 workers. You can control how many workers to start per machine
+by passing --workers=N.
+
+h2. More Info
+
+For more info check out the <a href="doc/index.html">README</a>
+
+h2. Contact
+
+Comments are welcome. Send an email to "Adam Pisoni" apisoni at geni.com
+
+h2. LICENSE:
+
+(The MIT License)
+
+Copyright (c) 2007 Adam Pisoni, Geni.com
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
