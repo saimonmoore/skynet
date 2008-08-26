@@ -3,7 +3,7 @@ require 'skynet/version'
 AUTHOR = 'Adam Pisoni'  # can also be an array of Authors
 EMAIL = "apisoni@geni.com"
 DESCRIPTION = "Skynet - A Ruby Map/Reduce Framework"
-GEM_NAME = 'skynet' # what ppl will type to install your gem
+GEM_NAME = 'saimonmoore-skynet' # what ppl will type to install your gem
 RUBYFORGE_PROJECT = 'skynet' # The unix name for your project
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 DOWNLOAD_PATH = "http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}"
