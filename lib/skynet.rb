@@ -25,12 +25,13 @@ require 'skynet_task'
 require 'skynet_manager'
 require 'skynet_tuplespace_server'
 require 'skynet_ruby_extensions'
-begin                       
-  require 'active_record'
-  require 'skynet_active_record_extensions'
-  require 'message_queue_adapters/mysql'
-rescue LoadError => e
-end
+# This should be required in skynet_config
+# begin                       
+#   require 'active_record'
+#   require 'skynet_active_record_extensions'
+#   require 'message_queue_adapters/mysql'
+# rescue LoadError => e
+# end
 require 'mapreduce_test'
 require 'skynet_launcher'
 require 'skynet_console'
